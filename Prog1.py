@@ -5,7 +5,7 @@ Purpose: To create a program that reads in values and computes
 them using the bitwise operators. Then displays them neatly
 on an output file.
  """
-
+import math
 
 
 
@@ -125,16 +125,17 @@ def convert_str_table2(table2_input):
 
     return table2_input
 
-def compute_table2_ops(table2_input):
-    ROWS = table2_input[0].pop(0)
-    table2_input.pop(0)
-    COLS = 10
-    result1 = []
-    for index in range(ROWS):
-        for c_input in range(COLS):
-
-
-    return table2_input
+# def compute_table2_ops(table2_input):
+#     ROWS = table2_input[0].pop(0)
+#     table2_input.pop(0)
+#     COLS = 10
+#     result1 = []
+#     for index in range(ROWS):
+#         for c_input in range(COLS):
+#
+#
+#
+#     return table2_input
 
 
 
@@ -155,21 +156,79 @@ def CreateBitwiseTable(bitTable1):
             print("%2d %16d %16d %16d %16d %16d" % (bitTable1[index][0], bitTable1[index][1], bitTable1[index][2], bitTable1[index][3], bitTable1[index][4],bitTable1[index][5]))
 
 
+# Function to convert number into string
+# Switcher is dictionary data type here
+def switch_2args(argument,num):
+    switcher = {
+        '>': num >> 1,
+        '<': num << 1,
+        'E': int((num % 2) == 0),
+        '2': isPower2(num),
+        'C': count_bits(num),
+    }
+
+    return switcher.get(argument, "nothing")
+
+
+def switch_3args(argument,num,postion):
+    switcher = {
+        'G': getBit(num,postion)
+    }
+
+
+    return switcher.get(argument, "nothing")
+
+def switch_4args(argument, num, postion, value):
+    switcher = {
+        'S': setBit(num, postion, value)
+
+    }
+
+
+    return switcher.get(argument, "nothing")
+
+
+def Log2(x):
+    if x == 0:
+        return False;
+    return (math.log10(x) / math.log10(2))
+
+
+def count_bits(n):
+    count = 0
+    while n:
+        n &= n - 1
+        count += 1
+    return count
+
+
+def isPower2(n):
+    return (math.ceil(Log2(n)) == math.floor(Log2(n)))
+
+
+def getBit(number,postion):
+    num = bin(number)
+    num = num[2:]
+    if postion-1 <= len(num):
+        return num[postion-1]
+    else:
+        return "Invalid position!"
+
+# def setBit(number,postion,value):
+#     num = bin(number)
+#     val = value
+#     num = num[2:] #removes garbage infront
+#     if postion - 1 <= len(num):
+#         num[postion-1] = bin(val)
+#         return int(num, 2)
+#     else:
+#         return "Invalid position"
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+def setBit( number,  position,  value):
+    mask = 1 << position
+    return (number & ~mask) | ((value << position) & mask)
 
 print("Name: Joachim Isaac\nProgram1: Bitwise Operations\n")
 input_list = read_input_files()
@@ -177,13 +236,18 @@ input_list = read_input_files()
 list1 = split_table1_input(input_list)
 list2 = split_table2_input(input_list)
 
+# s = bin(35)
+# s = s[2:]
+#
+# print(int(s,2))
+
+# print(setBit(35,3,1))
 # print(compute_table1_ops(list1))
-print(compute_table2_ops(list2))
+# print(compute_table2_ops(list2))
 
 
 
-
-
+print(setBit(35,3,1))
 
 
 # CreateBitwiseTable(result)
