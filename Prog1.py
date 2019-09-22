@@ -45,7 +45,7 @@ def open_output_file():
     return file
 
 
-
+(Remove)
 #Splits all the values for table 1 into an array.
 #and returns that array.
 def split_table1_input(input_list):
@@ -141,7 +141,7 @@ def compute_table1_ops(table1_input):
 
 
 
-
+(Remove)
 #Splits all the values for table 2 into an array.
 def split_table2_input(input_list):
     table2_input = []
